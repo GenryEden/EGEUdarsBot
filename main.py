@@ -89,7 +89,7 @@ def sendWord(message):
         reply_markup=markup
     )
     bot.register_next_step_handler(message, checkAnswer)
-    logger.info(f'Отправлено слово пользователю {user}')
+    logger.info(f'Отправлено слово пользователю {user} - {udars[words[0]['index']]['correct'].lower()}')
     whichWordChoosen[message.chat.id] = words[0]
     words[0]['all'] += 1
     dataBase[str(user)] = words
@@ -100,7 +100,7 @@ def checkAnswer(message):
     text = message.text
     user = message.chat.id
     wordChoosen = whichWordChoosen[message.chat.id]
-    logger.info(f'Принят ответ пользователя {user}')
+    logger.info(f'Принят ответ пользователя {user} - {text}')
     if text == udars[wordChoosen['index']]['correct']:
         bot.send_message(
             message.chat.id,
